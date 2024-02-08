@@ -1,5 +1,6 @@
 import os
 import telebot
+import dbthings
 
 print("hello")
 TELEBOT_TOKEN = os.environ['TELEBOT_TOKEN']
