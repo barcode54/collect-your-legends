@@ -17,7 +17,7 @@ enjoy plz
 ## Documentation (do not read)
  
 ### MongoDB structure
-
+ 
     {
     	"_id": "1",
     	"name": "Aatrox",
