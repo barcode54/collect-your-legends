@@ -9,4 +9,9 @@ bot = telebot.TeleBot(TELEBOT_TOKEN)
 def start(message):
   bot.reply_to(message, "Hello")
 
+@bot.message_handler(content_types=['photo'])
+def aa(message):
+  print(message.photo[0].file_id)
+  bot.d
+
 bot.polling()
