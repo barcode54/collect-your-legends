@@ -9,9 +9,17 @@ bot = telebot.TeleBot(TELEBOT_TOKEN)
 def start(message):
   bot.reply_to(message, "Hello")
 
+i = 9
 @bot.message_handler(content_types=['photo'])
 def aa(message):
   print(message.photo[0].file_id)
-  bot.d
+  print(message.caption)
+  file = bot.get_file(message.photo[0].file_id)
+  downloaded = bot.download_file(file.file_path)
+  with open("images/jojo.png", 'wb') as new_file:
+    new_file.write(downloaded)
 
-bot.polling()
+  i = i+1
+
+
+bot.polling("images")
