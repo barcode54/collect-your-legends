@@ -11,7 +11,7 @@ this bot is really cool
 `/shop` - *coming soon*
 `/coins` - view your **coins** -> currently no use but its cool to have coins
 
-enjoy plz
+enjoy plz 
 
 
 ## Documentation (do not read)
