@@ -15,7 +15,7 @@ try:
     name = input("name: ")
     skinline = input("skinline: ")
     role = input("role: ")
-    image = input("image: ")
+    image = "images/{}.png".format(name.lower())
     sauce = input("sauce: ")
     id = len([i for i in leggende.find({})])+1
   
