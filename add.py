@@ -11,13 +11,17 @@ try:
     print("Pinged your deployment. You successfully connected to MongoDB!")
     db = client["bot"]
     leggende = db["leggende"]
-    print(db)
-    print(client.list_database_names())
-    print(db.list_collection_names())
+    print("adding a legend")
+    name = input("name: ")
+    skinline = input("skinline: ")
+    role = input("role: ")
+    image = input("image: ")
+    sauce = input("sauce: ")
+    id = len([i for i in leggende.find({})])+1
+  
+    leggenda = {"name" : name, "skinline" : skinline, "role" : role, "image" : image, "sauce" : sauce, "_id" : id}
 
-    leggenda = {"name" : "Ahri", "skinline" : "base", "role" : "mid", "image" : "images/ahri.png", "sauce" : "https://www.pixiv.net/en/artworks/105621558", "_id" : "2"}
-    x = leggende.insert_one(leggenda)
-    print(x.inserted_id)
+    leggende.insert_one(leggenda)
     lista = [i for i in leggende.find({})]
     print(lista)
 except Exception as e:

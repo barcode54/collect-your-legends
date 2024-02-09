@@ -1,11 +1,9 @@
 import os
 import telebot
-import dbthings
 
-print("hello")
+print("bot started")
 TELEBOT_TOKEN = os.environ['TELEBOT_TOKEN']
 bot = telebot.TeleBot(TELEBOT_TOKEN)
-print(bot)
 
 @bot.message_handler(commands=['start'])
 def start(message):
