@@ -5,11 +5,17 @@ this bot is really cool
 ## Usage
 ### Commands:
 `/start` - starts the bot
+
 `/harem` - shows **harem**
+
 `/gift <id>` - gift a champion you have by replying to another user message (you need to know your champ id (you can check your harem) )
+
 `/profile` - show your **profile** -> soon you will be able to set a custom pfp and username for the bot
+
 `/shop` - *coming soon*
+
 `/coins` - view your **coins** -> currently no use but its cool to have coins
+
 
 enjoy plz 
 
