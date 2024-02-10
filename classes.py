@@ -1,3 +1,4 @@
+import tbutils
 print("importato classi")
 
 class Legend:
@@ -12,10 +13,10 @@ class Legend:
 
 
 class User:
-  def __init__(self, id, name, date, harem, coins, count, unique, level, xp):
-    self.id = id
+  def __init__(self, _id, name, date, harem, coins, count, unique, level, xp, date):
+    self._id = _id
     self.name = name
-    #self.date = get_date()
+    self.date = date
     self.harem = harem
     self.count = count
     self.unique = unique
@@ -28,9 +29,14 @@ class User:
 
 
 class Group:
-  def __init__(self, title, photo):
+  def __init__(self, _id, title, photo, spawned, message_count, current, date):
+    self._id = _id
     self.title = title
     self.photo = photo
-
+    self.spawned = False
+    self.message_count = message_count
+    self.current = current
+    self.date = date
+    
   def get_top_users(self):
     pass

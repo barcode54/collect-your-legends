@@ -22,3 +22,6 @@ def unix_to_date(unix):
 
 def ping(date):
   return str(datetime.datetime.fromtimestamp(time.time()) - datetime.datetime.utcfromtimestamp(date))
+
+def get_date():
+  return str(datetime.datetime.today())

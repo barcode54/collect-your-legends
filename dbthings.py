@@ -4,6 +4,8 @@ import pymongo
 from bson.objectid import ObjectId
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+import tbutils
+
 print("importato")
 
 uri = os.environ['MONGO']
@@ -20,6 +22,8 @@ except Exception as e:
 
 db = client["bot"]
 leggende = db["leggende"]
+gruppi = db["gruppi"]
+utenti = db["utenti"]
 
 
 def legendObj(legend):
@@ -54,9 +58,49 @@ def get_legends_by_regex(regex):
 def add_legend(legend):
   pass
 
-def editalo(_id, sauce):
-  q = {"_id" : _id}
-  leggende.update_one(q, {"$set" : {"sauce" : sauce}})
+
+for i in range(10, 53):
+  print(get_legend_by_id(i))
 
 
-print(get_legend_by_id(9).sauce)
+
+def add_group(_id, title, photo):
+  group = {
+    "_id" : _id,
+    "title" : title,
+    "photo" : photo,
+    "spawned" : False,
+    "message_count" : 0,
+    "current" : 0,
+    "date" : tbutils.get_date()
+  }
+  
+  gruppi.insert_one(group)
+
+
+def groupObj(group):
+  return classes.Group(group["_id"], group["title"], group["photo"], group["spawned"], group["message_count"], group["current"], group["date"])
+
+
+def get_group_by_id(id):
+  return groupObj(gruppi.find_one({"_id": id}))
+
+def get_all_groups():
+  return [groupObj(group) for group in gruppi.find({})]
+
+def get_groups_by_title(title):
+  return [groupObj(group) for group in gruppi.find({"title": title})]
+
+def get_groups_by_regex(regex):
+  return [groupObj(group) for group in gruppi.find({"title": {"$regex": regex}})]
+
+def get_groups_by_photo(photo):
+  return [groupObj(group) for group in gruppi.find({"photo": photo})]
+
+def get_groups_by_date(date):
+  return [groupObj(group) for group in gruppi.find({"date": date})]
+
+def get_groups_by_spawned(spawned):
+  return [groupObj(group) for group in gruppi.find({"spawned": spawned})]
+
+
