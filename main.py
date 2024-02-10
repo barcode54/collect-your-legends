@@ -4,13 +4,13 @@ import dbthings
 
 print("bot started")
 TELEBOT_TOKEN = os.environ['TELEBOT_TOKEN']
-bot = telebot.TeleBot(TELEBOT_TOKEN)
+bot = telebot.TeleBot(TELEBOT_TOKEN, threaded=False)
 
 @bot.message_handler(commands=['start'])
 def start(message):
   bot.reply_to(message, "Hello")
 
-i = 9
+i = 10
 @bot.message_handler(content_types=['photo'])
 def aa(message):
   global i

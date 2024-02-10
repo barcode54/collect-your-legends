@@ -55,5 +55,8 @@ def add_legend(legend):
   pass
 
 def editalo(_id, sauce):
-  q = {"_id" : id}
+  q = {"_id" : _id}
   leggende.update_one(q, {"$set" : {"sauce" : sauce}})
+
+
+print(get_legend_by_id(9).sauce)
