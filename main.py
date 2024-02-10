@@ -10,16 +10,16 @@ bot = telebot.TeleBot(TELEBOT_TOKEN, threaded=False)
 def start(message):
   bot.reply_to(message, "Hello")
 
-i = 10
+i = 9
 @bot.message_handler(content_types=['photo'])
 def aa(message):
   global i
   leggenda = dbthings.get_legend_by_id(i)
   print("editando", leggenda.name, i)
-  print(leggenda.name)
-  print(message.photo[0].file_id)
+  print(message.photo[-1].file_id)
   print(message.caption)
-  file = bot.get_file(message.photo[0].file_id)
+  file = bot.get_file(message.photo[-1].file_id)
+  downloaded = bot.download_file(file.file_path)
   downloaded = bot.download_file(file.file_path)
   with open("images/{}.png".format(leggenda.name).lower(), 'wb') as new_file:
     new_file.write(downloaded)
