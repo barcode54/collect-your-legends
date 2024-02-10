@@ -1,8 +1,10 @@
 import os
+import classes
 import pymongo
 from bson.objectid import ObjectId
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+print("importato")
 
 uri = os.environ['MONGO']
 client = MongoClient(uri, server_api=ServerApi('1'))
@@ -21,10 +23,12 @@ leggende = db["leggende"]
 
 
 def legendObj(legend):
-  return Legend(legend["_id"], legend["name"], legend["skinline"], legend["role"], legend["image"], legend["sauce"], legend["guesses"])
+  return classes.Legend(legend["_id"], legend["name"], legend["skinline"], legend["role"], legend["image"], legend["sauce"], legend["guesses"])
 
 def get_legend_by_id(id):
-  result = leggende.find_one({"_id": ObjectId(id)})
+  print(id)
+  result = leggende.find_one({"_id": id})
+  print(result)
   return legendObj(result)
 
 def get_all_legends():
@@ -48,4 +52,8 @@ def get_legends_by_regex(regex):
   return [legendObj(legend) for legend in result]
 
 def add_legend(legend):
-  leggende.insert_one()
+  pass
+
+def editalo(_id, sauce):
+  q = {"_id" : id}
+  leggende.update_one(q, {"$set" : {"sauce" : sauce}})
