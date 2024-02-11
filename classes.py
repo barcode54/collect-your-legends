@@ -13,7 +13,7 @@ class Legend:
 
 
 class User:
-  def __init__(self, _id, name, date, harem, coins, count, unique, level, xp, date):
+  def __init__(self, _id, name, date, harem, coins, count, unique, level, xp):
     self._id = _id
     self.name = name
     self.date = date

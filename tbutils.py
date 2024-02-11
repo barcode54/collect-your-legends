@@ -25,3 +25,9 @@ def ping(date):
 
 def get_date():
   return str(datetime.datetime.today())
+
+def download_file(bot, file_id, file_name):
+  file_info = bot.get_file(file_id)
+  downloaded_file = bot.download_file(file_info.file_path)
+  with open(file_name, 'wb') as new_file:
+    new_file.write(downloaded_file)

@@ -27,7 +27,13 @@ utenti = db["utenti"]
 
 
 def legendObj(legend):
-  return classes.Legend(legend["_id"], legend["name"], legend["skinline"], legend["role"], legend["image"], legend["sauce"], legend["guesses"])
+  if legend:
+    result = classes.Legend(legend["_id"], legend["name"], legend["skinline"], legend["role"], legend["image"], legend["sauce"], legend["guesses"])
+
+  else:
+    result = None
+
+  return result
 
 def get_legend_by_id(id):
   print(id)
@@ -37,23 +43,23 @@ def get_legend_by_id(id):
 
 def get_all_legends():
   result = leggende.find({})
-  return [legendObj(legend) for legend in result]
+  return [legendObj(legend) for legend in result].remove(None)
 
 def get_legends_by_role(role):
   result = leggende.find({"role": role})
-  return [legendObj(legend) for legend in result]
+  return [legendObj(legend) for legend in result].remove(None)
 
 def get_legends_by_skinline(skinline):
   result = leggende.find({"skinline": skinline})
-  return [legendObj(legend) for legend in result]
+  return [legendObj(legend) for legend in result].remove(None)
 
 def get_legends_by_name(name):
   result = leggende.find({"name": name})
-  return [legendObj(legend) for legend in result]
+  return [legendObj(legend) for legend in result].remove(None)
 
 def get_legends_by_regex(regex):
   result = leggende.find({"name": {"$regex": regex}})
-  return [legendObj(legend) for legend in result]
+  return [legendObj(legend) for legend in result].remove(None)
 
 def add_legend(legend):
   pass
@@ -79,28 +85,31 @@ def add_group(_id, title, photo):
 
 
 def groupObj(group):
-  return classes.Group(group["_id"], group["title"], group["photo"], group["spawned"], group["message_count"], group["current"], group["date"])
+  if group:
+    result = classes.Group(group["_id"], group["title"], group["photo"], group["spawned"], group["message_count"], group["current"], group["date"])
+  else:
+    result = None
+  return result
 
 
 def get_group_by_id(id):
   return groupObj(gruppi.find_one({"_id": id}))
 
 def get_all_groups():
-  return [groupObj(group) for group in gruppi.find({})]
+  return [groupObj(group) for group in gruppi.find({})].remove(None)
 
 def get_groups_by_title(title):
-  return [groupObj(group) for group in gruppi.find({"title": title})]
+  return [groupObj(group) for group in gruppi.find({"title": title})].remove(None)
 
 def get_groups_by_regex(regex):
-  return [groupObj(group) for group in gruppi.find({"title": {"$regex": regex}})]
+  return [groupObj(group) for group in gruppi.find({"title": {"$regex": regex}})].remove(None)
 
 def get_groups_by_photo(photo):
-  return [groupObj(group) for group in gruppi.find({"photo": photo})]
+  return [groupObj(group) for group in gruppi.find({"photo": photo})].remove(None)
 
 def get_groups_by_date(date):
-  return [groupObj(group) for group in gruppi.find({"date": date})]
+  return [groupObj(group) for group in gruppi.find({"date": date})].remove(None)
 
 def get_groups_by_spawned(spawned):
-  return [groupObj(group) for group in gruppi.find({"spawned": spawned})]
-
+  return [groupObj(group) for group in gruppi.find({"spawned": spawned})].remove(None)
 
