@@ -10,13 +10,54 @@ TELEBOT_TOKEN = os.environ['TELEBOT_TOKEN']
 bot = telebot.TeleBot(TELEBOT_TOKEN, threaded=False)
 capo = os.environ['CAPO']
 
-def get_manutenzione():
-  with open("cfg.json") as f:
+
+
+
+def avvisa(avviso):
+  bot.send_message(capo, avviso)
+
+def is_capo(id):
+  if str(id) == str(capo):
+    return True
+
+  else:
+    return False
+
+def get_manutenzione(id):
+  with open("cfg.json", 'r') as f:
     data = json.loads(f.read())
     f.close()
 
-  manutenzione = bool(data["manutenzione"])
-  return manutenzione
+  if is_capo(id):
+    manutenzione = False
+
+  else:
+    manutenzione = bool(data["manutenzione"])
+  return manutenzione 
+
+
+def manutenzione_on(bot):
+  with open("cfg.json", "w") as f:
+    data = {"manutenzione": 1}
+    f.write(json.dumps(data))
+    f.close()
+
+  bot.set_my_name("[OFF]𝐂𝐨𝐥𝐥𝐞𝐜𝐭 𝐘𝐨𝐮𝐫 𝐋𝐞𝐠𝐞𝐧𝐝𝐬")
+  return
+
+
+def manutenzione_off(bot):
+  with open("cfg.json", "w") as f:
+    data = {"manutenzione": 0}
+    f.write(json.dumps(data))
+    f.close()
+
+  bot.set_my_name("𝐂𝐨𝐥𝐥𝐞𝐜𝐭 𝐘𝐨𝐮𝐫 𝐋𝐞𝐠𝐞𝐧𝐝𝐬")
+  return
+
+
+avvisa("bot startato!")
+
 
 @bot.message_handler(commands=['start'], chat_types=['private'])
 def start(message):
@@ -27,7 +68,19 @@ def start(message):
   bot.reply_to(message, "_\"her eyes were a portrait of a world without my cruelty\.\.\.\"_", reply_markup=kb, parse_mode="MARKDOWNV2")
 
 
-@bot.message_handler(commands=['ping'])
+@bot.message_handler(commands=['on'], chat_types=['private'], func=lambda message : is_capo(message.from_user.id))
+def rompi(message):
+  manutenzione_off(bot)
+  bot.reply_to(message, "il bot è nuovamente in funzione!\n\nmanutenzione: Disattivata\nstato: ON")
+
+
+@bot.message_handler(commands=['off'], chat_types=['private'], func=lambda message : is_capo(message.from_user.id))
+def ripristina(message):
+  manutenzione_on(bot)
+  bot.reply_to(message, "il funzionamento del bot è sospeso.\n\nmanutenzione: Attiva\nstato: OFF")
+
+
+@bot.message_handler(commands=['ping'], func=lambda message : not get_manutenzione(id))
 def ping(message):
   response = tbutils.ping(message.date)
   bot.reply_to(message, "🏓 pong! \n\n<code>{}s</code>".format(response[6:-3:]), parse_mode='HTML')
@@ -70,5 +123,6 @@ while 1:
     bot.polling(non_stop=False)
   except Exception as e:
     print(e)
+    avvisa("an error occured: {}".format(e))
 
   time.sleep(3)
