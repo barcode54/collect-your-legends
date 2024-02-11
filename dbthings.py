@@ -71,6 +71,7 @@ for i in range(10, 53):
 
 
 def add_group(_id, title, photo):
+  print("aggiungendo")
   group = {
     "_id" : _id,
     "title" : title,

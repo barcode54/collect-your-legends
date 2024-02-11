@@ -39,10 +39,16 @@ def welcome(message):
     bot.reply_to(message, "Thank you for adding me !")
     id = message.chat.id
     if not dbthings.get_group_by_id(id):
-      photo = message.chat.photo.big_file_id
-      dbthings.add_group(id, message.chat.title, photo)
-      tbutils.download_file(bot, photo, "groups/{}.png".format(id))
-      bot.send_message(capo, "i was added to {} !!".format(message.chat.title))
+      print(message)
+      photo = bot.get_chat(id).photo
+      if not photo:
+        path = "groups/default.png"
+      else:
+        path = "groups/{}.png".format(id)
+        photo = photo.big_file_id
+      dbthings.add_group(id, message.chat.title, path)
+      tbutils.download_file(bot, photo, path)
+      bot.send_message(capo, "i was added to {} !! ({})".format(message.chat.title, id))
   else:
     bot.reply_to(message, "Hi! {} Welcome to the group !".format(message.new_chat_members[0].first_name))
 
